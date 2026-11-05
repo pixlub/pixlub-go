@@ -30,11 +30,14 @@ const (
 
 	maxRunAnswerBytes = 256 << 10
 
-	maxOutputBytes = 100 << 20
+	// Largest output read into memory: above any image the API produces
+	// (uploaded images go up to 1 GiB).
+	maxOutputBytes = 1 << 30
 
 	maxRunOutputs = 64 * 4
 
-	maxRunOutputBytes = 1 << 30
+	// All the outputs of one run together.
+	maxRunOutputBytes int64 = 4 << 30
 
 	catalogTTL = 10 * time.Minute
 )

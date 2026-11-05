@@ -822,7 +822,11 @@ func TestDefaultsOfTheContract(t *testing.T) {
 	if client.baseURL != "https://api.pixlub.com" || client.maxInputBytes != 3<<30 || client.jobTimeout != 30*time.Minute {
 		t.Errorf("defaults = %s, %d, %v", client.baseURL, client.maxInputBytes, client.jobTimeout)
 	}
-	if DirectUploadMaxBytes != 94371840 || !strings.HasPrefix(userAgent, "pixlub-go/0.3.0 ") {
+	if DirectUploadMaxBytes != 94371840 || !strings.HasPrefix(userAgent, "pixlub-go/0.3.1 ") {
 		t.Errorf("DirectUploadMaxBytes = %d, User-Agent = %q", DirectUploadMaxBytes, userAgent)
+	}
+	// Images go up to 1 GiB: so does one output; a run reads at most 4 GiB.
+	if maxOutputBytes != 1<<30 || maxRunOutputBytes != 4<<30 {
+		t.Errorf("output limits = %d, %d", maxOutputBytes, maxRunOutputBytes)
 	}
 }
